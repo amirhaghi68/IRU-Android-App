@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">asrar</string>
+    <string name="navigation_drawrer_open">Open nav drawer</string>
+    <string name="navigation_drawer_close">Close nav drawer</string>
+</resources>

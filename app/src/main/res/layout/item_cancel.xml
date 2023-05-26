@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/matte"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layoutDirection="rtl"
+            app:cardBackgroundColor="@color/matte">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X  کنسل شد"
+                    android:textColor="@color/transparent"
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/shabnam" />
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/shabnam_bold"
+                    android:textColor="@color/black"
+                    android:text=" جبر خطی کاربردی"
+                    android:textSize="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_access_time"
+                    android:drawableTint="@color/transparent"
+                    android:textSize="18dp"
+                    android:text="9:00-11:30"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/shabnam_medium_f"
+                    android:gravity="center"
+                    android:layout_marginStart="0dp"
+                    android:layout_below="@+id/tv_title"
+                    android:drawablePadding="10dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/transparent"
+                android:textSize="18dp"
+                android:fontFamily="@font/shabnam"
+                android:text="مروی مهاجر مهدی"
+                android:drawableRight="@drawable/ic_person"
+                android:drawableTint="@color/transparent"
+                android:drawablePadding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/transparent"
+                android:textSize="18dp"
+                android:fontFamily="@font/shabnam_fd"
+                android:text="کلاس (112) ساختمان اسرار"
+                android:drawableRight="@drawable/ic_location"
+                android:drawableTint="@color/transparent"
+                android:drawablePadding="10dp"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+
+</LinearLayout>
