@@ -14,6 +14,7 @@
         android:theme="@style/Theme.Asrar"
         tools:targetApi="31">
         <activity
+            android:configChanges="locale"
             android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -26,8 +27,15 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
+
         </activity>
-        <activity  android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity  android:configChanges="locale"
+            android:name=".MainActivity" android:screenOrientation="portrait" >
+
+        </activity>
+
+
     </application>
 
 </manifest>

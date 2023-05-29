@@ -1,28 +1,29 @@
 package com.example.IRUAndroidApp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
-
 
 import com.example.IRUAndroidApp.adapters.CalendarAdapter;
 import com.example.IRUAndroidApp.adapters.ItemsAdapter;
+import com.example.IRUAndroidApp.api.ApiService;
 import com.example.IRUAndroidApp.models.CalendarDayModel;
+import com.example.IRUAndroidApp.models.Schedule;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 
@@ -31,6 +32,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     ImageView menu;
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     Toolbar toolbar;
     NavigationView navigationView;
     List<String> dates = new ArrayList<>();
+    TextView tvTest;
+    List<Schedule> allSchedule = new ArrayList<>();
 
 
 
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
         init();
         //Calendar();
+        callApi();
 
 
 
@@ -76,11 +86,11 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_bar, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -97,14 +107,14 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     }
 
     void init(){
-
+        //tvTest = findViewById(R.id.tv_test);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         toolbar.getOverflowIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         //layoutManager1.setOrientation(RecyclerView.HORIZONTAL);
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         rvMenu1.setLayoutManager(layoutManager);
         //rvCalendar.setLayoutManager(layoutManager1);
        // rvMenu3.setLayoutManager(new LinearLayoutManager(this));
-        rvMenu1.setAdapter(new ItemsAdapter(this));
+
         menu = findViewById(R.id.right_icon);
         /*menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +179,36 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rvCalendar);
 
+
+    }
+
+    void callApi(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://192.168.43.56/apiproject1/")
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<Schedule>> call = apiService.getData();
+
+        call.enqueue(new Callback<List<Schedule>>() {
+            @Override
+            public void onResponse(Call<List<Schedule>> call, Response<List<Schedule>> response) {
+                if (response.isSuccessful()) {
+                    allSchedule = response.body();
+                    itemsAdapter = new ItemsAdapter(getApplicationContext(),allSchedule);
+                    rvMenu1.setAdapter(itemsAdapter);
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Schedule>> call, Throwable t) {
+                // Handle error
+            }
+        });
 
     }
 }

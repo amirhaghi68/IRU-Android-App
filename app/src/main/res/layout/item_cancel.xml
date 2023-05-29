@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    android:id="@+id/ll_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/matte"
         android:layout_gravity="center"
         app:cardCornerRadius="10dp"
@@ -17,12 +17,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp"
             android:layoutDirection="rtl"
             app:cardBackgroundColor="@color/matte">
 
@@ -34,6 +34,7 @@
                 app:cardBackgroundColor="@color/white">
 
                 <TextView
+                    android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X  کنسل شد"
@@ -49,7 +50,7 @@
                 android:layout_marginTop="30dp">
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/course_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/shabnam_bold"
@@ -60,9 +61,10 @@
                     android:layout_marginEnd="0dp"/>
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_access_time"
+                    android:drawableStart="@drawable/ic_access_time"
                     android:drawableTint="@color/transparent"
                     android:textSize="18dp"
                     android:text="9:00-11:30"
@@ -70,30 +72,32 @@
                     android:fontFamily="@font/shabnam_medium_f"
                     android:gravity="center"
                     android:layout_marginStart="0dp"
-                    android:layout_below="@+id/tv_title"
+                    android:layout_below="@+id/course_name"
                     android:drawablePadding="10dp"/>
 
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/professor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/transparent"
                 android:textSize="18dp"
                 android:fontFamily="@font/shabnam"
                 android:text="مروی مهاجر مهدی"
-                android:drawableRight="@drawable/ic_person"
+                android:drawableStart="@drawable/ic_person"
                 android:drawableTint="@color/transparent"
                 android:drawablePadding="10dp"/>
 
             <TextView
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/transparent"
                 android:textSize="18dp"
                 android:fontFamily="@font/shabnam_fd"
                 android:text="کلاس (112) ساختمان اسرار"
-                android:drawableRight="@drawable/ic_location"
+                android:drawableStart="@drawable/ic_location"
                 android:drawableTint="@color/transparent"
                 android:drawablePadding="10dp"/>
 
