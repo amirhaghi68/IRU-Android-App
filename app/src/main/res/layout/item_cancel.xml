@@ -31,16 +31,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white">
+                app:cardBackgroundColor="@color/transparent">
 
                 <TextView
                     android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X  کنسل شد"
-                    android:textColor="@color/transparent"
+                    android:textColor="@color/white"
                     android:padding="10dp"
-                    android:textSize="15dp"
+                    android:textSize="18dp"
                     android:fontFamily="@font/shabnam" />
             </androidx.cardview.widget.CardView>
 

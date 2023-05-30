@@ -7,7 +7,7 @@ public class Schedule {
     private String row;
     @SerializedName("نوع اعلام")
     private String type;
-    @SerializedName("جلسه جبرانی/کنسلی/فوق العاده")
+    @SerializedName("تاریخ جلسه جبرانی/کنسلی/فوق العاده")
     private String date;
     @SerializedName("شماره کلاس جبرانی")
     private String classNumber;

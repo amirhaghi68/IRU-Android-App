@@ -19,6 +19,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.itemsAdapter
     Context context;
     List<Schedule> schedule;
     String location;
+    public String monthName;
 
     public ItemsAdapter(Context context,List<Schedule> schedule) {
         this.context = context;
@@ -36,12 +37,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.itemsAdapter
     @Override
     public void onBindViewHolder(@NonNull ItemsAdapter.itemsAdapterViewHolder holder, int position) {
         position = holder.getAdapterPosition();
+        Schedule scheduleItem = schedule.get(position);
         location = "کلاس"+" ("+schedule.get(position).getClassNumber()+") "+schedule.get(position).getLocation();
         holder.professorName.setText(schedule.get(position).getProfessorName());
         holder.courseName.setText(schedule.get(position).getCourseName());
         holder.tvLocation.setText(location);
-        holder.tvCancel.setText(schedule.get(position).getType());
+        //holder.tvCancel.setText(schedule.get(position).getType());
         holder.tvTime.setText(schedule.get(position).getTime());
+
+
+        if (scheduleItem.getType().equals("جبرانی")) {
+            holder.tvCancel.setBackgroundColor(context.getResources().getColor(R.color.green));
+        } else {
+            holder.tvCancel.setBackgroundColor(context.getResources().getColor(android.R.color.holo_red_dark));
+        }
+        holder.tvCancel.setText(scheduleItem.getType());
+
+
+
+
+
+
     }
 
     @Override
@@ -51,11 +67,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.itemsAdapter
 
     public class itemsAdapterViewHolder extends RecyclerView.ViewHolder {
         LinearLayout llParent;
-        TextView tvCancel;
+        public TextView tvCancel;
         TextView tvTime;
         TextView professorName;
         TextView tvLocation;
         TextView courseName;
+        TextView tvDate;
 
 
         public itemsAdapterViewHolder(@NonNull View itemView) {
@@ -66,6 +83,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.itemsAdapter
             tvLocation = itemView.findViewById(R.id.tv_location);
             courseName = itemView.findViewById(R.id.course_name);
             professorName = itemView.findViewById(R.id.professor_name);
+            tvDate = itemView.findViewById(R.id.tv_date);
         }
     }
+
+
 }
