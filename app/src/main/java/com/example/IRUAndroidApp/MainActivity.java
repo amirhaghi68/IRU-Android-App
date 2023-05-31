@@ -1,10 +1,17 @@
 package com.example.IRUAndroidApp;
 
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -13,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -55,11 +63,17 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     TextView tvTest;
     List<Schedule> allSchedule = new ArrayList<>();
     List<Schedule> daySchedule = new ArrayList<>();
+    List<Schedule> filteredSchedule = new ArrayList<>();
     //TextView tvCancel;
     TextView tvDate,tv1,tv2,tv3,tv4,tv5,tv6,tv7,test;
     TextView courseName;
     String monthName;
     TextView[] calendar = new TextView[7];
+    ImageView ivSearch;
+    androidx.appcompat.widget.SearchView searchView;
+    private boolean isSearchVisible=true;
+    Menu navigationMenu;
+    EditText etTest;
 
 
 
@@ -73,8 +87,19 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         setContentView(R.layout.activity_main);
 
         init();
-
+        //searchControl();
         callApi(calendar[0]);
+
+
+        navigationMenu.findItem(R.id.action_settings).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Toast.makeText(MainActivity.this, "shit", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
 
 
 
@@ -103,22 +128,14 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         return true;
     }*/
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                // Handle settings button click
-                return true;
-            case R.id.action_help:
-                // Handle help button click
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
+
+
+
 
     void init(){
-
+        navigationView = findViewById(R.id.nav_view);
+        navigationMenu = navigationView.getMenu();
         tv1 = findViewById(R.id.tv1);
         tv2 = findViewById(R.id.tv2);
         tv3 = findViewById(R.id.tv3);
@@ -172,6 +189,32 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                 }
             });
         }
+        ivSearch = findViewById(R.id.iv_search);
+        ivSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchControl();
+            }
+        });
+
+        etTest = findViewById(R.id.et_test);
+        etTest.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    filter(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
 
 
@@ -218,6 +261,19 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
     }
 
+    private void filter(String searchText){
+        Log.d("AAA", "filter() method called with search text: " + searchText);
+        int i;
+        filteredSchedule.clear();
+        for (i=0 ; i<daySchedule.size() ; i++){
+            if (daySchedule.get(i).getCourseName().contains(searchText)){
+                filteredSchedule.add(daySchedule.get(i));
+            }
+            Log.d("MainActivity", "Filtered schedule size: " + filteredSchedule.size());
+        }
+        itemsAdapter.notifyDataSetChanged();
+    }
+
     void callApi(TextView textView){
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -232,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
             public void onResponse(Call<List<Schedule>> call, Response<List<Schedule>> response) {
                 if (response.isSuccessful()) {
                     allSchedule = response.body();
+                    //filteredSchedule.addAll(allSchedule);
                     //itemsAdapter = new ItemsAdapter(getApplicationContext(),allSchedule);
                     //rvMenu1.setAdapter(itemsAdapter);
 
@@ -253,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                             //Toast.makeText(MainActivity.this, tv1.getText(), Toast.LENGTH_SHORT).show();
                             String d1="",m1 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp1 = schedule.getDate().split("/");
@@ -266,9 +324,10 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
                             Toast.makeText(MainActivity.this, d1, Toast.LENGTH_SHORT).show();
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
 
                             break;
@@ -276,6 +335,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                             //Toast.makeText(MainActivity.this, "tv2", Toast.LENGTH_SHORT).show();
                             String d2="",m2 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp2 = schedule.getDate().split("/");
@@ -289,8 +349,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
 
                             break;
@@ -298,6 +359,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                             //Toast.makeText(MainActivity.this, "tv3", Toast.LENGTH_SHORT).show();
                             String d3="",m3 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp3 = schedule.getDate().split("/");
@@ -311,8 +373,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
 
                             break;
@@ -321,6 +384,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
                             String d4="",m4 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp4 = schedule.getDate().split("/");
@@ -334,8 +398,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
 
                             break;
@@ -344,6 +409,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
                             String d5="",m5 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp5 = schedule.getDate().split("/");
@@ -357,8 +423,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
 
                             break;
@@ -367,6 +434,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
                             String d6="",m6 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp6 = schedule.getDate().split("/");
@@ -380,8 +448,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 }else
                                     Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
                             break;
                         case R.id.tv7:
@@ -389,6 +458,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
                             String d7="",m7 = "";
                             daySchedule.clear();
+                            filteredSchedule.clear();
                             for (Schedule schedule : allSchedule){
                                 if (schedule.getDate()!=null){
                                     String[] dp7 = schedule.getDate().split("/");
@@ -407,8 +477,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                                 Toast.makeText(MainActivity.this, "no data", Toast.LENGTH_SHORT).show();
                                 tvDate.setText(tv7.getText()+" "+monthName);
                             }
+                            filteredSchedule.addAll(daySchedule);
 
-                            itemsAdapter = new ItemsAdapter(getApplicationContext(),daySchedule);
+                            itemsAdapter = new ItemsAdapter(getApplicationContext(),filteredSchedule);
                             rvMenu1.setAdapter(itemsAdapter);
                             break;
                     }
@@ -473,6 +544,67 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
                 monthName = "اسفند";
         }
     }
+
+    void searchControl(){
+
+        searchView = findViewById(R.id.search_view);
+        searchView.setVisibility(View.VISIBLE);
+        //isSearchVisible = false;
+        TextView textView = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        ColorFilter colorFilter = new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+
+        closeButton.setColorFilter(Color.WHITE);
+        textView.setTextColor(Color.WHITE);
+
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("AAA", "onQueryTextChange: ");
+                filter(newText);
+                return true;
+            }
+        });
+
+
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+
+// Set onClickListener for search icon
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Perform some action when search icon is clicked
+                Toast.makeText(MainActivity.this, "Search icon clicked", Toast.LENGTH_SHORT).show();
+                searchView.setVisibility(View.GONE);
+            }
+        });
+
+
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isSearchVisible){
+            searchView.setVisibility(View.GONE);
+            isSearchVisible=false;
+        }else
+            super.onBackPressed();
+
+
+    }
+
+
 
 
 }

@@ -26,7 +26,24 @@
             app:titleTextAppearance="@style/title"
             app:title="اسرار"
             app:titleTextColor="@color/white"
-            android:layoutDirection="rtl"/>
+            android:layoutDirection="rtl">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@drawable/ic_arrow_back"
+                android:gravity="end"
+                app:queryHint="جستجو..."
+                android:textDirection="rtl"
+                android:visibility="gone"
+                android:theme="@style/SearchFont"/>
+
+
+
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,6 +59,12 @@
             android:orientation="vertical"
             android:background="@color/white"
             android:layout_marginTop="?attr/actionBarSize">
+
+
+            <EditText
+                android:id="@+id/et_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
 
@@ -64,7 +87,10 @@
                         android:fontFamily="@font/shabnam_bold"
                         android:textColor="@color/black"/>
 
+
+
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_search"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_search"
