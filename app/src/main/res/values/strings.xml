@@ -2,4 +2,13 @@
     <string name="app_name">کلاس های دانشگاه امام رضا</string>
     <string name="navigation_drawrer_open">Open nav drawer</string>
     <string name="navigation_drawer_close">Close nav drawer</string>
+
+    <string name="select_department_prompt">انتخاب بخش</string>
+    <array name="departments_array">
+        <item>بخش IT</item>
+        <item>بخش حسابداری</item>
+        <item>بخش بازرگانی</item>
+        <item>بخش فنی</item>
+        <item>بخش منابع انسانی</item>
+    </array>
 </resources>

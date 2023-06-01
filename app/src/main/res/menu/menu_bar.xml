@@ -5,10 +5,13 @@
 
         <item
             android:id="@+id/action_settings"
-            android:title="Settings"/>
+            android:title="کلاس کنسلی/جبرانی"
+            android:icon="@drawable/ic_access_time"
+            android:iconTint="@color/transparent"/>
         <item
             android:id="@+id/action_help"
-            android:title="Help"/>
+            android:title="گزارش خرابی"
+            android:icon="@drawable/ic_build_circle"/>
 
 
     </group>

@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/header_image"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_person"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_comment"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"/>
 
@@ -19,12 +19,13 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Header Title"
-        android:layout_below="@id/header_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"/>
+        android:text="کاربر مهمان"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
 
-    <TextView
+        android:layout_margin="18dp"/>
+
+    <!--<TextView
         android:id="@+id/header_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,5 +33,5 @@
         android:textSize="14sp"
         android:text="Header Subtitle"
         android:layout_below="@id/header_title"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"/>-->
 </RelativeLayout>
