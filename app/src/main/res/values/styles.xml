@@ -4,11 +4,11 @@
     <style name="MyTableRowStyle">200dp</style>
 
     <style name="SearchFont" >
-        <item name="fontFamily">@font/shabnam</item>
+        <item name="android:fontFamily">@font/shabnam</item>
     </style>
 
     <style name="NavTheme">
-        <item name="fontFamily">@font/shabnam</item>
+        <item name="android:fontFamily">@font/shabnam</item>
         <item name="android:textSize">18dp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
@@ -16,8 +16,10 @@
     <style name="NavigationItemStyle" parent="@style/Widget.MaterialComponents.NavigationView">
         <item name="android:textColor">@color/transparent</item>
         <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/shabnam</item>
+        <item name="android:fontFamily">@font/shabnam</item>
     </style>
+
+    <style name="Widget"></style>
 
 
 </resources>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#1E88E5"
+    android:id="@+id/con_frag">
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginBottom="30dp"
+        android:layoutDirection="rtl">
+
+        <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:background="#00000000"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/alo"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/cyan"
+            app:titleTextAppearance="@style/title"
+            app:title="گزارش خرابی کلاس ها"
+            app:titleTextColor="@color/white"
+            android:layoutDirection="rtl">
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_forward"
+                android:layout_gravity="left"
+                app:tint="@color/white"
+                android:layout_marginLeft="5dp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1E88E5">
+
+            <TextView
+                android:id="@+id/ticket_header_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="فرم ارسال تیکت"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp"/>
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ticket_header_textview"
+                android:layout_above="@+id/bt_send">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:textDirection="rtl"
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="نام و نام خانوادگی"
+                        android:textColorHint="@color/cyan"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/shabnam_fd"
+                        android:maxLength="20"/>
+
+                    <EditText
+                        android:textDirection="rtl"
+                        android:fontFamily="@font/shabnam_fd"
+                        android:id="@+id/et_stu_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="شماره دانشجویی"
+                        android:textColorHint="@color/cyan"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:inputType="number"
+                        android:maxLength="8"/>
+
+                    <EditText
+                        android:textDirection="rtl"
+                        android:id="@+id/et_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="موضوع مشکل"
+                        android:textColorHint="@color/cyan"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/shabnam_fd"
+                        android:maxLength="20"
+                        android:layout_marginBottom="10dp"/>
+
+                    <Spinner
+                        android:id="@+id/department_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/departments_array"
+                        android:prompt="@string/select_department_prompt"
+                        android:backgroundTint="#FFFFFF"
+                        android:layout_marginBottom="5dp" />
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/captchaImageView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3" />
+
+                        <ImageView
+                            android:id="@+id/iv_refresh"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_refresh_24"
+                            android:layout_gravity="center"/>
+
+
+                        <EditText
+                            android:id="@+id/captchaInputEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:inputType="text"
+                            android:layout_gravity="center"
+                            android:gravity="left"
+                            android:backgroundTint="@color/white"
+                            android:textColor="@color/white"
+                            android:maxLength="5"/>
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+
+                    <EditText
+                        android:textDirection="rtl"
+                        android:id="@+id/et_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="متن پیام"
+                        android:textColorHint="@color/cyan"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/shabnam_fd"
+                        android:maxLength="80"/>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/bt_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#FFFFFF"
+                android:text="ارسال"
+                android:textColor="#1E88E5"/>
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/menu_bar"
+            app:headerLayout="@layout/navigation_header"
+            app:itemShapeFillColor="@color/white"
+            android:layoutDirection="rtl"
+            app:itemTextAppearance="@style/NavigationItemStyle"/>
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

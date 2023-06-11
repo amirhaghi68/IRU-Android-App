@@ -13,4 +13,6 @@
     <color name="orange">#FFB368</color>
     <color name="invisible">#00000000</color>
     <color name="green">#228B22</color>
+    <color name="red">#ffcc0000</color>
+    <color name="pure_green">#00ff00</color>
 </resources>
